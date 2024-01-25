@@ -55,6 +55,7 @@ spec:
           privileged: false
           readOnlyRootFilesystem: true
         image: busybox:latest
+        imagePullPolicy: Always
         env:
         - name: FRONTEND_ADDR
           value: "frontend:8081"
@@ -67,7 +68,8 @@ spec:
               - all
           privileged: false
           readOnlyRootFilesystem: true
-        image: pmarelas288/loadgenerator
+        image: dpacheconr/loadgenerator
+        imagePullPolicy: Always
         env:
         - name: FRONTEND_ADDR
           value: "frontend:8081"

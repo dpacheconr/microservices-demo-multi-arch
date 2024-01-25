@@ -44,7 +44,8 @@ spec:
               - all
           privileged: false
           readOnlyRootFilesystem: true
-        image: pmarelas288/loadgeneratorredis
+        image: dpacheconr/loadgeneratorredis
+        imagePullPolicy: Always
         env:
         - name: REDIS_ADDR
           value: "redis-cart"

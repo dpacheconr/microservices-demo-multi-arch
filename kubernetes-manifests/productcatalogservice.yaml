@@ -31,7 +31,8 @@ spec:
       terminationGracePeriodSeconds: 5
       containers:
       - name: productcatalogservice
-        image: pmarelas288/productcatalogservice
+        image: dpacheconr/productcatalogservice
+        imagePullPolicy: Always
         ports:
         - containerPort: 3550
         env:

@@ -7,7 +7,7 @@ fi
 
 IMAGES=$@
 NAMESPACE=store
-MANIFESTS="${MANIFESTS:-kubernetes-manifests}"
+MANIFESTS="${MANIFESTS:-kubernetes-manifests/lowmem}"
 
 if [ -z "$IMAGES" ]; then
 	IMAGES="redis adservice cartservice checkoutservice currencyservice emailservice frontend paymentservice productcatalogservice recommendationservice shippingservice loadgenerator"

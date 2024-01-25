@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 CURRENT=$PWD
-REPO=pmarelas288
+REPO=dpacheconr
 IMAGES=$@
 
 if [ -z "$IMAGES" ]; then
@@ -13,10 +13,9 @@ do
 	echo "##### Building $SERVICE #####"
 	cd $CURRENT
 	cd src/$SERVICE
-	docker build -t $REPO/$SERVICE .
+	docker buildx build --no-cache --push -t $REPO/$SERVICE -o type=image --platform=linux/arm64,linux/amd64 .
 	if [ $? -ne 0 ]; then
 		echo "##### Failed to build $SERVICE #####"
 		exit 1
 	fi
-	docker push $REPO/$SERVICE
 done

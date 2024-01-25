@@ -31,7 +31,8 @@ spec:
       terminationGracePeriodSeconds: 5
       containers:
       - name: paymentservice
-        image: pmarelas288/paymentservice
+        image: dpacheconr/paymentservice
+        imagePullPolicy: Always
         ports:
         - containerPort: 50051
         env:
