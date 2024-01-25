@@ -30,48 +30,50 @@ spec:
       serviceAccountName: default
       terminationGracePeriodSeconds: 5
       containers:
-      - name: productcatalogservice
-        image: dpacheconr/productcatalogservice
-        imagePullPolicy: IfNotPresent
-        ports:
-        - containerPort: 3550
-        env:
-        - name: NEW_RELIC_LICENSE_KEY
-          valueFrom:
-            secretKeyRef:
-              name: newrelic-key
-              key: new-relic-license-key
-        - name: NEW_RELIC_APP_NAME
-          value: "store-productcatalogservice"
-        - name: NEW_RELIC_LOG_LEVEL
-          value: "info"
-        - name: NEW_RELIC_LOG
-          value: "stdout"
-        - name: PORT
-          value: "3550"
-        startupProbe:
-          failureThreshold: 30
-          periodSeconds: 40
-          timeoutSeconds: 30
-          grpc:
-            port: 3550
-        readinessProbe:
-          periodSeconds: 30
-          timeoutSeconds: 10
-          grpc:
-            port: 3550
-        livenessProbe:
-          periodSeconds: 30
-          timeoutSeconds: 10
-          grpc:
-            port: 3550
-        resources:
-          requests:
-            cpu: 50m
-            memory: 40Mi
-          limits:
-            cpu: 70m
-            memory: 50Mi
+        - name: productcatalogservice
+          image: {{REPO}}/productcatalogservice
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 3550
+          env:
+            - name: NEW_RELIC_LICENSE_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: newrelic-key
+                  key: new-relic-license-key
+            - name: NEW_RELIC_APP_NAME
+              value: "store-productcatalogservice"
+            - name: NEW_RELIC_LOG_LEVEL
+              value: "info"
+            - name: NEW_RELIC_LOG
+              value: "stdout"
+            - name: PORT
+              value: "3550"
+          startupProbe:
+            failureThreshold: 30
+            periodSeconds: 40
+            timeoutSeconds: 30
+            grpc:
+              port: 3550
+          readinessProbe:
+            periodSeconds: 30
+            timeoutSeconds: 10
+            grpc:
+              port: 3550
+          livenessProbe:
+            periodSeconds: 30
+            timeoutSeconds: 10
+            grpc:
+              port: 3550
+          resources:
+            requests:
+              cpu: 50m
+              memory: 40Mi
+            limits:
+              cpu: 70m
+              memory: 50Mi
+      
+
 ---
 apiVersion: v1
 kind: Service
@@ -82,6 +84,9 @@ spec:
   selector:
     app: productcatalogservice
   ports:
-  - name: grpc
-    port: 3550
-    targetPort: 3550
+    - name: grpc
+      port: 3550
+      targetPort: 3550
+
+      
+

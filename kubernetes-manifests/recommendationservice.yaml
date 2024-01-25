@@ -31,7 +31,7 @@ spec:
       terminationGracePeriodSeconds: 5
       containers:
       - name: recommendationservice
-        image: dpacheconr/recommendationservice
+        image: {{REPO}}/recommendationservice
         imagePullPolicy: IfNotPresent
         ports:
         - containerPort: 8080

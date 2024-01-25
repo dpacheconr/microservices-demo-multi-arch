@@ -5,6 +5,7 @@ if [ -z "$NEW_RELIC_LICENSE_KEY" ]; then
   exit 1
 fi
 
+REPO=dpacheconr
 IMAGES=$@
 NAMESPACE=store
 MANIFESTS="${MANIFESTS:-kubernetes-manifests/lowmem}"
@@ -28,5 +29,5 @@ fi
 for SERVICE in $IMAGES
 do
   echo Deploying $SERVICE
-  kubectl -n store apply -f $MANIFESTS/$SERVICE.yaml
+  cat $MANIFESTS/$SERVICE.yaml | sed "s/{{REPO}}/$REPO/g" | kubectl -n store apply -f -
 done

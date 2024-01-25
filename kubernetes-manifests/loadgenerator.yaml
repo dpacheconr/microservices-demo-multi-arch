@@ -68,7 +68,7 @@ spec:
               - all
           privileged: false
           readOnlyRootFilesystem: true
-        image: dpacheconr/loadgenerator
+        image: {{REPO}}/loadgenerator
         imagePullPolicy: IfNotPresent
         env:
         - name: FRONTEND_ADDR

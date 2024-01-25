@@ -30,53 +30,55 @@ spec:
       serviceAccountName: default
       terminationGracePeriodSeconds: 5
       containers:
-      - name: cartservice
-        image: dpacheconr/cartservice
-        imagePullPolicy: IfNotPresent
-        ports:
-        - containerPort: 7070
-        env:
-        - name: NEW_RELIC_LICENSE_KEY
-          valueFrom:
-            secretKeyRef:
-              name: newrelic-key
-              key: new-relic-license-key
-        - name: NEW_RELIC_APP_NAME
-          value: "store-cartservice"
-        - name: NEW_RELIC_APPLICATION_LOGGING_ENABLED
-          value: "true"
-        - name: NEW_RELIC_APPLICATION_LOGGING_FORWARDING_ENABLED
-          value: "true"
-        - name: NEW_RELIC_APPLICATION_LOGGING_FORWARDING_CONTEXT_DATA_ENABLED
-          value: "true"
-        - name: NEW_RELIC_APPLICATION_LOGGING_LOCAL_DECORATING_ENABLED
-          value: "false"
-        - name: REDIS_ADDR
-          value: "redis-cart:6379"
-        resources:
-          requests:
-            cpu: 50m
-            memory: 250Mi
-          limits:
-            cpu: 75m
-            memory: 300Mi
-        startupProbe:
-          initialDelaySeconds: 60
-          failureThreshold: 30
-          periodSeconds: 60
-          timeoutSeconds: 50
-          grpc:
-            port: 7070
-        readinessProbe:
-          periodSeconds: 30
-          timeoutSeconds: 10
-          grpc:
-            port: 7070
-        livenessProbe:
-          periodSeconds: 30
-          timeoutSeconds: 10
-          grpc:
-            port: 7070
+        - name: cartservice
+          image: {{REPO}}/cartservice
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 7070
+          env:
+            - name: NEW_RELIC_LICENSE_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: newrelic-key
+                  key: new-relic-license-key
+            - name: NEW_RELIC_APP_NAME
+              value: "store-cartservice"
+            - name: NEW_RELIC_APPLICATION_LOGGING_ENABLED
+              value: "true"
+            - name: NEW_RELIC_APPLICATION_LOGGING_FORWARDING_ENABLED
+              value: "true"
+            - name: NEW_RELIC_APPLICATION_LOGGING_FORWARDING_CONTEXT_DATA_ENABLED
+              value: "true"
+            - name: NEW_RELIC_APPLICATION_LOGGING_LOCAL_DECORATING_ENABLED
+              value: "false"
+            - name: REDIS_ADDR
+              value: "redis-cart:6379"
+          resources:
+            requests:
+              cpu: 50m
+              memory: 250Mi
+            limits:
+              cpu: 75m
+              memory: 300Mi
+          startupProbe:
+            initialDelaySeconds: 60
+            failureThreshold: 30
+            periodSeconds: 60
+            timeoutSeconds: 50
+            grpc:
+              port: 7070
+          readinessProbe:
+            periodSeconds: 30
+            timeoutSeconds: 10
+            grpc:
+              port: 7070
+          livenessProbe:
+            periodSeconds: 30
+            timeoutSeconds: 10
+            grpc:
+              port: 7070
+      
+
 ---
 apiVersion: v1
 kind: Service
@@ -87,6 +89,9 @@ spec:
   selector:
     app: cartservice
   ports:
-  - name: grpc
-    port: 7070
-    targetPort: 7070
+    - name: grpc
+      port: 7070
+      targetPort: 7070
+
+      
+

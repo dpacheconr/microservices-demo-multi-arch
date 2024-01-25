@@ -30,51 +30,53 @@ spec:
       serviceAccountName: default
       terminationGracePeriodSeconds: 5
       containers:
-      - name: currencyservice
-        image: dpacheconr/currencyservice
-        imagePullPolicy: IfNotPresent
-        ports:
-        - name: grpc
-          containerPort: 7000
-        env:
-        - name: NEW_RELIC_LICENSE_KEY
-          valueFrom:
-            secretKeyRef:
-              name: newrelic-key
-              key: new-relic-license-key
-        - name: NEW_RELIC_APP_NAME
-          value: "store-currencyservice"
-        - name: NEW_RELIC_LOG
-          value: "stdout"
-        - name: NEW_RELIC_LOG_LEVEL
-          value: "debug"
-        - name: NEW_RELIC_NO_CONFIG_FILE
-          value: "true"
-        - name: PORT
-          value: "7000"
-        startupProbe:
-          failureThreshold: 30
-          periodSeconds: 40
-          timeoutSeconds: 30
-          grpc:
-            port: 7000
-        readinessProbe:
-          periodSeconds: 30
-          timeoutSeconds: 10
-          grpc:
-            port: 7000
-        livenessProbe:
-          periodSeconds: 30
-          timeoutSeconds: 10
-          grpc:
-            port: 7000
-        resources:
-          requests:
-            cpu: 30m
-            memory: 60Mi
-          limits:
-            cpu: 45m
-            memory: 90Mi
+        - name: currencyservice
+          image: {{REPO}}/currencyservice
+          imagePullPolicy: IfNotPresent
+          ports:
+            - name: grpc
+              containerPort: 7000
+          env:
+            - name: NEW_RELIC_LICENSE_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: newrelic-key
+                  key: new-relic-license-key
+            - name: NEW_RELIC_APP_NAME
+              value: "store-currencyservice"
+            - name: NEW_RELIC_LOG
+              value: "stdout"
+            - name: NEW_RELIC_LOG_LEVEL
+              value: "debug"
+            - name: NEW_RELIC_NO_CONFIG_FILE
+              value: "true"
+            - name: PORT
+              value: "7000"
+          startupProbe:
+            failureThreshold: 30
+            periodSeconds: 40
+            timeoutSeconds: 30
+            grpc:
+              port: 7000
+          readinessProbe:
+            periodSeconds: 30
+            timeoutSeconds: 10
+            grpc:
+              port: 7000
+          livenessProbe:
+            periodSeconds: 30
+            timeoutSeconds: 10
+            grpc:
+              port: 7000
+          resources:
+            requests:
+              cpu: 30m
+              memory: 60Mi
+            limits:
+              cpu: 45m
+              memory: 90Mi
+      
+
 ---
 apiVersion: v1
 kind: Service
@@ -85,6 +87,9 @@ spec:
   selector:
     app: currencyservice
   ports:
-  - name: grpc
-    port: 7000
-    targetPort: 7000
+    - name: grpc
+      port: 7000
+      targetPort: 7000
+
+      
+

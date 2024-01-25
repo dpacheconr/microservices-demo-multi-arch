@@ -31,7 +31,7 @@ spec:
       terminationGracePeriodSeconds: 5
       containers:
       - name: adservice
-        image: dpacheconr/adservice
+        image: {{REPO}}/adservice
         imagePullPolicy: IfNotPresent
         env:
         - name: NEW_RELIC_LICENSE_KEY

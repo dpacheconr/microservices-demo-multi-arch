@@ -30,7 +30,7 @@ spec:
       serviceAccountName: default
       containers:
       - name: shippingservice
-        image: dpacheconr/shippingservice
+        image: {{REPO}}/shippingservice
         imagePullPolicy: IfNotPresent
         ports:
         - containerPort: 50051

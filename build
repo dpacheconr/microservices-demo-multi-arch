@@ -13,7 +13,7 @@ do
 	echo "##### Building $SERVICE #####"
 	cd $CURRENT
 	cd src/$SERVICE
-	docker buildx build --no-cache --push -t $REPO/$SERVICE -o type=image --platform=linux/arm64,linux/amd64 .
+	docker buildx build --push -t $REPO/$SERVICE -o type=image --platform=linux/arm64,linux/amd64 .
 	if [ $? -ne 0 ]; then
 		echo "##### Failed to build $SERVICE #####"
 		exit 1

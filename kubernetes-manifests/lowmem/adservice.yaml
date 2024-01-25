@@ -30,57 +30,57 @@ spec:
       serviceAccountName: default
       terminationGracePeriodSeconds: 5
       containers:
-      - name: adservice
-        image: dpacheconr/adservice
-        imagePullPolicy: IfNotPresent
-        env:
-        - name: NEW_RELIC_LICENSE_KEY
-          valueFrom:
-            secretKeyRef:
-              name: newrelic-key
-              key: new-relic-license-key
-        - name: PORT
-          value: "9555"
-        - name: NEW_RELIC_APP_NAME
-          value: "store-adservice"
-        - name: NEW_RELIC_LOG_FILE_NAME
-          value: "STDOUT"
-        - name: NEW_RELIC_LOG_LEVEL
-          value: "info"
-        - name: NEW_RELIC_APPLICATION_LOGGING_ENABLED
-          value: "true"
-        - name: NEW_RELIC_APPLICATION_LOGGING_LOCAL_DECORATING_ENABLED
-          value: "false"
-        - name: NEW_RELIC_APPLICATION_LOGGING_FORWARDING_ENABLED
-          value: "false"
-        - name: JAVA_OPTS
-          value: "-javaagent:/app/newrelic/newrelic.jar"
-        ports:
-        - containerPort: 9555
-        resources:
-          requests:
-            cpu: 100m
-            memory: 350Mi
-          limits:
-            cpu: 150m
-            memory: 400Mi
-        startupProbe:
-          initialDelaySeconds: 60
-          failureThreshold: 30
-          periodSeconds: 60
-          timeoutSeconds: 50
-          grpc:
-            port: 9555
-        readinessProbe:
-          periodSeconds: 30
-          timeoutSeconds: 10
-          grpc:
-            port: 9555
-        livenessProbe:
-          periodSeconds: 30
-          timeoutSeconds: 10
-          grpc:
-            port: 9555
+        - name: adservice
+          image: {{REPO}}/adservice
+          imagePullPolicy: IfNotPresent
+          env:
+            - name: NEW_RELIC_LICENSE_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: newrelic-key
+                  key: new-relic-license-key
+            - name: PORT
+              value: "9555"
+            - name: NEW_RELIC_APP_NAME
+              value: "store-adservice"
+            - name: NEW_RELIC_LOG_FILE_NAME
+              value: "STDOUT"
+            - name: NEW_RELIC_LOG_LEVEL
+              value: "info"
+            - name: NEW_RELIC_APPLICATION_LOGGING_ENABLED
+              value: "true"
+            - name: NEW_RELIC_APPLICATION_LOGGING_LOCAL_DECORATING_ENABLED
+              value: "false"
+            - name: NEW_RELIC_APPLICATION_LOGGING_FORWARDING_ENABLED
+              value: "false"
+            - name: JAVA_OPTS
+              value: "-javaagent:/app/newrelic/newrelic.jar"
+          ports:
+            - containerPort: 9555
+          resources:
+            requests:
+              cpu: 100m
+              memory: 350Mi
+            limits:
+              cpu: 150m
+              memory: 400Mi
+          startupProbe:
+            initialDelaySeconds: 60
+            failureThreshold: 30
+            periodSeconds: 60
+            timeoutSeconds: 50
+            grpc:
+              port: 9555
+          readinessProbe:
+            periodSeconds: 30
+            timeoutSeconds: 10
+            grpc:
+              port: 9555
+          livenessProbe:
+            periodSeconds: 30
+            timeoutSeconds: 10
+            grpc:
+              port: 9555
 ---
 apiVersion: v1
 kind: Service
@@ -91,6 +91,6 @@ spec:
   selector:
     app: adservice
   ports:
-  - name: grpc
-    port: 9555
-    targetPort: 9555
+    - name: grpc
+      port: 9555
+      targetPort: 9555

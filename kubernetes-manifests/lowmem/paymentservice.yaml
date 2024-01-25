@@ -30,50 +30,52 @@ spec:
       serviceAccountName: default
       terminationGracePeriodSeconds: 5
       containers:
-      - name: paymentservice
-        image: dpacheconr/paymentservice
-        imagePullPolicy: IfNotPresent
-        ports:
-        - containerPort: 50051
-        env:
-        - name: NEW_RELIC_LICENSE_KEY
-          valueFrom:
-            secretKeyRef:
-              name: newrelic-key
-              key: new-relic-license-key
-        - name: NEW_RELIC_APP_NAME
-          value: "store-paymentservice"
-        - name: NEW_RELIC_LOG
-          value: "stdout"
-        - name: NEW_RELIC_LOG_LEVEL
-          value: "debug"
-        - name: NEW_RELIC_NO_CONFIG_FILE
-          value: "true"
-        - name: PORT
-          value: "50051"
-        startupProbe:
-          failureThreshold: 30
-          periodSeconds: 40
-          timeoutSeconds: 30
-          grpc:
-            port: 50051
-        readinessProbe:
-          periodSeconds: 30
-          timeoutSeconds: 10
-          grpc:
-            port: 50051
-        livenessProbe:
-          periodSeconds: 30
-          timeoutSeconds: 10
-          grpc:
-            port: 50051
-        resources:
-          requests:
-            cpu: 15m
-            memory: 50Mi
-          limits:
-            cpu: 20m
-            memory: 80Mi
+        - name: paymentservice
+          image: {{REPO}}/paymentservice
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 50051
+          env:
+            - name: NEW_RELIC_LICENSE_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: newrelic-key
+                  key: new-relic-license-key
+            - name: NEW_RELIC_APP_NAME
+              value: "store-paymentservice"
+            - name: NEW_RELIC_LOG
+              value: "stdout"
+            - name: NEW_RELIC_LOG_LEVEL
+              value: "debug"
+            - name: NEW_RELIC_NO_CONFIG_FILE
+              value: "true"
+            - name: PORT
+              value: "50051"
+          startupProbe:
+            failureThreshold: 30
+            periodSeconds: 40
+            timeoutSeconds: 30
+            grpc:
+              port: 50051
+          readinessProbe:
+            periodSeconds: 30
+            timeoutSeconds: 10
+            grpc:
+              port: 50051
+          livenessProbe:
+            periodSeconds: 30
+            timeoutSeconds: 10
+            grpc:
+              port: 50051
+          resources:
+            requests:
+              cpu: 15m
+              memory: 50Mi
+            limits:
+              cpu: 20m
+              memory: 80Mi
+      
+
 ---
 apiVersion: v1
 kind: Service
@@ -84,6 +86,9 @@ spec:
   selector:
     app: paymentservice
   ports:
-  - name: grpc
-    port: 50051
-    targetPort: 50051
+    - name: grpc
+      port: 50051
+      targetPort: 50051
+
+      
+

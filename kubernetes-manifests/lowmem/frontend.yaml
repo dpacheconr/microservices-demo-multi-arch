@@ -30,10 +30,10 @@ spec:
       serviceAccountName: default
       containers:
         - name: frontend
-          image: dpacheconr/frontend
+          image: {{REPO}}/frontend
           imagePullPolicy: IfNotPresent
           ports:
-          - containerPort: 8080
+            - containerPort: 8080
           startupProbe:
             failureThreshold: 30
             periodSeconds: 40
@@ -42,8 +42,8 @@ spec:
               path: "/_healthz"
               port: 8080
               httpHeaders:
-              - name: "Cookie"
-                value: "shop_session-id=x-readiness-probe"
+                - name: "Cookie"
+                  value: "shop_session-id=x-readiness-probe"
           readinessProbe:
             periodSeconds: 30
             timeoutSeconds: 10
@@ -51,8 +51,8 @@ spec:
               path: "/_healthz"
               port: 8080
               httpHeaders:
-              - name: "Cookie"
-                value: "shop_session-id=x-readiness-probe"
+                - name: "Cookie"
+                  value: "shop_session-id=x-readiness-probe"
           livenessProbe:
             periodSeconds: 30
             timeoutSeconds: 10
@@ -60,36 +60,36 @@ spec:
               path: "/_healthz"
               port: 8080
               httpHeaders:
-              - name: "Cookie"
-                value: "shop_session-id=x-liveness-probe"
+                - name: "Cookie"
+                  value: "shop_session-id=x-liveness-probe"
           env:
-          - name: NEW_RELIC_LICENSE_KEY
-            valueFrom:
-              secretKeyRef:
-                name: newrelic-key
-                key: new-relic-license-key
-          - name: NEW_RELIC_APP_NAME
-            value: "store-frontend"
-          - name: NEW_RELIC_LOG
-            value: "stdout"
-          - name: NEW_RELIC_LOG_LEVEL
-            value: "info"
-          - name: PORT
-            value: "8080"
-          - name: PRODUCT_CATALOG_SERVICE_ADDR
-            value: "productcatalogservice:3550"
-          - name: CURRENCY_SERVICE_ADDR
-            value: "currencyservice:7000"
-          - name: CART_SERVICE_ADDR
-            value: "cartservice:7070"
-          - name: RECOMMENDATION_SERVICE_ADDR
-            value: "recommendationservice:8080"
-          - name: SHIPPING_SERVICE_ADDR
-            value: "shippingservice:50051"
-          - name: CHECKOUT_SERVICE_ADDR
-            value: "checkoutservice:5050"
-          - name: AD_SERVICE_ADDR
-            value: "adservice:9555"
+            - name: NEW_RELIC_LICENSE_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: newrelic-key
+                  key: new-relic-license-key
+            - name: NEW_RELIC_APP_NAME
+              value: "store-frontend"
+            - name: NEW_RELIC_LOG
+              value: "stdout"
+            - name: NEW_RELIC_LOG_LEVEL
+              value: "info"
+            - name: PORT
+              value: "8080"
+            - name: PRODUCT_CATALOG_SERVICE_ADDR
+              value: "productcatalogservice:3550"
+            - name: CURRENCY_SERVICE_ADDR
+              value: "currencyservice:7000"
+            - name: CART_SERVICE_ADDR
+              value: "cartservice:7070"
+            - name: RECOMMENDATION_SERVICE_ADDR
+              value: "recommendationservice:8080"
+            - name: SHIPPING_SERVICE_ADDR
+              value: "shippingservice:50051"
+            - name: CHECKOUT_SERVICE_ADDR
+              value: "checkoutservice:5050"
+            - name: AD_SERVICE_ADDR
+              value: "adservice:9555"
           resources:
             requests:
               cpu: 40m
@@ -97,6 +97,8 @@ spec:
             limits:
               cpu: 50m
               memory: 75Mi
+      
+
 ---
 apiVersion: v1
 kind: Service
@@ -107,9 +109,12 @@ spec:
   selector:
     app: frontend
   ports:
-  - name: http
-    port: 8081
-    targetPort: 8080
+    - name: http
+      port: 8081
+      targetPort: 8080
+
+      
+
 ---
 apiVersion: v1
 kind: Service
@@ -120,6 +125,9 @@ spec:
   selector:
     app: frontend
   ports:
-  - name: http
-    port: 8081
-    targetPort: 8080
+    - name: http
+      port: 8081
+      targetPort: 8080
+
+      
+

@@ -31,7 +31,7 @@ spec:
       terminationGracePeriodSeconds: 5
       containers:
       - name: productcatalogservice
-        image: dpacheconr/productcatalogservice
+        image: {{REPO}}/productcatalogservice
         imagePullPolicy: IfNotPresent
         ports:
         - containerPort: 3550

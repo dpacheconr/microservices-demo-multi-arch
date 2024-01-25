@@ -31,7 +31,7 @@ spec:
       terminationGracePeriodSeconds: 5
       containers:
       - name: cartservice
-        image: dpacheconr/cartservice
+        image: {{REPO}}/cartservice
         imagePullPolicy: IfNotPresent
         ports:
         - containerPort: 7070

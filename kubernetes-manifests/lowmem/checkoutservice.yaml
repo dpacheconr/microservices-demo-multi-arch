@@ -30,36 +30,36 @@ spec:
       serviceAccountName: default
       containers:
         - name: checkoutservice
-          image: dpacheconr/checkoutservice
+          image: {{REPO}}/checkoutservice
           imagePullPolicy: IfNotPresent
           ports:
-          - containerPort: 5050
+            - containerPort: 5050
           env:
-          - name: NEW_RELIC_LICENSE_KEY
-            valueFrom:
-              secretKeyRef:
-                name: newrelic-key
-                key: new-relic-license-key
-          - name: NEW_RELIC_APP_NAME
-            value: "store-checkoutservice"
-          - name: NEW_RELIC_LOG
-            value: "stdout"
-          - name: NEW_RELIC_LOG_LEVEL
-            value: "info"
-          - name: PORT
-            value: "5050"
-          - name: PRODUCT_CATALOG_SERVICE_ADDR
-            value: "productcatalogservice:3550"
-          - name: SHIPPING_SERVICE_ADDR
-            value: "shippingservice:50051"
-          - name: PAYMENT_SERVICE_ADDR
-            value: "paymentservice:50051"
-          - name: EMAIL_SERVICE_ADDR
-            value: "emailservice:5000"
-          - name: CURRENCY_SERVICE_ADDR
-            value: "currencyservice:7000"
-          - name: CART_SERVICE_ADDR
-            value: "cartservice:7070"
+            - name: NEW_RELIC_LICENSE_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: newrelic-key
+                  key: new-relic-license-key
+            - name: NEW_RELIC_APP_NAME
+              value: "store-checkoutservice"
+            - name: NEW_RELIC_LOG
+              value: "stdout"
+            - name: NEW_RELIC_LOG_LEVEL
+              value: "info"
+            - name: PORT
+              value: "5050"
+            - name: PRODUCT_CATALOG_SERVICE_ADDR
+              value: "productcatalogservice:3550"
+            - name: SHIPPING_SERVICE_ADDR
+              value: "shippingservice:50051"
+            - name: PAYMENT_SERVICE_ADDR
+              value: "paymentservice:50051"
+            - name: EMAIL_SERVICE_ADDR
+              value: "emailservice:5000"
+            - name: CURRENCY_SERVICE_ADDR
+              value: "currencyservice:7000"
+            - name: CART_SERVICE_ADDR
+              value: "cartservice:7070"
           startupProbe:
             failureThreshold: 30
             periodSeconds: 40
@@ -75,7 +75,7 @@ spec:
             periodSeconds: 30
             timeoutSeconds: 10
             grpc:
-              port: 5050            
+              port: 5050
           resources:
             requests:
               cpu: 10m
@@ -83,6 +83,8 @@ spec:
             limits:
               cpu: 20m
               memory: 75Mi
+      
+
 ---
 apiVersion: v1
 kind: Service
@@ -93,6 +95,9 @@ spec:
   selector:
     app: checkoutservice
   ports:
-  - name: grpc
-    port: 5050
-    targetPort: 5050
+    - name: grpc
+      port: 5050
+      targetPort: 5050
+
+      
+

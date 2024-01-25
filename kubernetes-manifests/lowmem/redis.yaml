@@ -26,40 +26,42 @@ spec:
         app: redis-cart
     spec:
       containers:
-      - name: redis
-        image: redis:alpine
-        imagePullPolicy: IfNotPresent
-        ports:
-        - containerPort: 6379
-        startupProbe:
-          failureThreshold: 30
-          periodSeconds: 40
-          timeoutSeconds: 30
-          tcpSocket:
-            port: 6379
-        readinessProbe:
-          periodSeconds: 30
-          timeoutSeconds: 10
-          tcpSocket:
-            port: 6379
-        livenessProbe:
-          periodSeconds: 30
-          timeoutSeconds: 10
-          tcpSocket:
-            port: 6379
-        volumeMounts:
-        - mountPath: /data
-          name: redis-data
-        resources:
-          limits:
-            memory: 50Mi
-            cpu: 20m
-          requests:
-            cpu: 10m
-            memory: 30Mi
+        - name: redis
+          image: redis:alpine
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 6379
+          startupProbe:
+            failureThreshold: 30
+            periodSeconds: 40
+            timeoutSeconds: 30
+            tcpSocket:
+              port: 6379
+          readinessProbe:
+            periodSeconds: 30
+            timeoutSeconds: 10
+            tcpSocket:
+              port: 6379
+          livenessProbe:
+            periodSeconds: 30
+            timeoutSeconds: 10
+            tcpSocket:
+              port: 6379
+          volumeMounts:
+            - mountPath: /data
+              name: redis-data
+          resources:
+            limits:
+              memory: 50Mi
+              cpu: 20m
+            requests:
+              cpu: 10m
+              memory: 30Mi
       volumes:
-      - name: redis-data
-        emptyDir: {}
+        - name: redis-data
+          emptyDir: {}
+      
+
 ---
 apiVersion: v1
 kind: Service
@@ -70,6 +72,9 @@ spec:
   selector:
     app: redis-cart
   ports:
-  - name: tcp-redis
-    port: 6379
-    targetPort: 6379
+    - name: tcp-redis
+      port: 6379
+      targetPort: 6379
+
+      
+

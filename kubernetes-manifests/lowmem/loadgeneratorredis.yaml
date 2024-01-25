@@ -44,7 +44,7 @@ spec:
               - all
           privileged: false
           readOnlyRootFilesystem: true
-        image: dpacheconr/loadgeneratorredis
+        image: {{REPO}}/loadgeneratorredis
         imagePullPolicy: IfNotPresent
         env:
         - name: REDIS_ADDR

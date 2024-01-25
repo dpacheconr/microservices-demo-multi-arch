@@ -30,7 +30,7 @@ spec:
       serviceAccountName: default
       containers:
         - name: checkoutservice
-          image: dpacheconr/checkoutservice
+          image: {{REPO}}/checkoutservice
           imagePullPolicy: IfNotPresent
           ports:
           - containerPort: 5050
