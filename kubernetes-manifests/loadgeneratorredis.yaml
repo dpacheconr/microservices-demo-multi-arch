@@ -45,7 +45,7 @@ spec:
           privileged: false
           readOnlyRootFilesystem: true
         image: dpacheconr/loadgeneratorredis
-        imagePullPolicy: Always
+        imagePullPolicy: IfNotPresent
         env:
         - name: REDIS_ADDR
           value: "redis-cart"

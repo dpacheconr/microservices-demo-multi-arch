@@ -31,7 +31,7 @@ spec:
       containers:
       - name: shippingservice
         image: dpacheconr/shippingservice
-        imagePullPolicy: Always
+        imagePullPolicy: IfNotPresent
         ports:
         - containerPort: 50051
         env:

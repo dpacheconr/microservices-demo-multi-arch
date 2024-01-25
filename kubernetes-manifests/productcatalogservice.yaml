@@ -32,7 +32,7 @@ spec:
       containers:
       - name: productcatalogservice
         image: dpacheconr/productcatalogservice
-        imagePullPolicy: Always
+        imagePullPolicy: IfNotPresent
         ports:
         - containerPort: 3550
         env:

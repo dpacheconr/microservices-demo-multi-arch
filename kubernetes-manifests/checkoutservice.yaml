@@ -31,7 +31,7 @@ spec:
       containers:
         - name: checkoutservice
           image: dpacheconr/checkoutservice
-          imagePullPolicy: Always
+          imagePullPolicy: IfNotPresent
           ports:
           - containerPort: 5050
           env:

@@ -32,7 +32,7 @@ spec:
       containers:
       - name: adservice
         image: dpacheconr/adservice
-        imagePullPolicy: Always
+        imagePullPolicy: IfNotPresent
         env:
         - name: NEW_RELIC_LICENSE_KEY
           valueFrom:

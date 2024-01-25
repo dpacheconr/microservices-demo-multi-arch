@@ -32,7 +32,7 @@ spec:
       containers:
       - name: paymentservice
         image: dpacheconr/paymentservice
-        imagePullPolicy: Always
+        imagePullPolicy: IfNotPresent
         ports:
         - containerPort: 50051
         env:

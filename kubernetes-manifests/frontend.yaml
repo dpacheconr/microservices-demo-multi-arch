@@ -31,7 +31,7 @@ spec:
       containers:
         - name: frontend
           image: dpacheconr/frontend
-          imagePullPolicy: Always
+          imagePullPolicy: IfNotPresent
           ports:
           - containerPort: 8080
           startupProbe:

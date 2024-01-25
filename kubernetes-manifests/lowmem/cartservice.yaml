@@ -32,7 +32,7 @@ spec:
       containers:
       - name: cartservice
         image: dpacheconr/cartservice
-        imagePullPolicy: Always
+        imagePullPolicy: IfNotPresent
         ports:
         - containerPort: 7070
         env:
