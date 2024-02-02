@@ -16,6 +16,8 @@
 
 import random
 from locust import HttpUser, TaskSet, between
+from selenium.webdriver.common.by import By
+from selenium.webdriver.support import expected_conditions as EC
 
 products = [
     '0PUK6V6EV0',
@@ -30,7 +32,9 @@ products = [
 
 def index(l):
     l.client.get("/")
-
+    l.client.wait.until(EC.visibility_of_element_located((By.XPATH, '//a[text()="Documentation"]')), "documentation link is visible")
+    l.client.find_element_by_xpath('//a[text()="Documentation"]').click()
+    
 def setCurrency(l):
     currencies = ['EUR', 'USD', 'JPY', 'CAD']
     l.client.post("/setCurrency",
@@ -79,3 +83,8 @@ class UserBehavior(TaskSet):
 class WebsiteUser(HttpUser):
     tasks = [UserBehavior]
     wait_time = between(1, 10)
+
+
+
+def browse(self): 
+

@@ -11,7 +11,7 @@ NAMESPACE=store
 MANIFESTS="${MANIFESTS:-kubernetes-manifests/lowmem}"
 
 if [ -z "$IMAGES" ]; then
-	IMAGES="redis adservice cartservice checkoutservice currencyservice emailservice frontend paymentservice productcatalogservice recommendationservice shippingservice loadgenerator"
+	IMAGES="redis adservice cartservice checkoutservice currencyservice emailservice frontend frontend-cm paymentservice productcatalogservice recommendationservice shippingservice loadgenerator"
 fi
 
 kubectl get namespaces $NAMESPACE > /dev/null 2>&1

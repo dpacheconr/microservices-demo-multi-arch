@@ -97,6 +97,14 @@ spec:
             limits:
               cpu: 200m
               memory: 128Mi
+          volumeMounts:
+            - name: frontend-cm
+              mountPath: /templates
+              subPath: header.html
+      volumes:
+        - name: frontend-cm
+          configMap:
+            name: frontend-cm
 ---
 apiVersion: v1
 kind: Service
