@@ -12,7 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-FROM eclipse-temurin:19 as builder
+FROM eclipse-temurin:19@sha256:1037fb7fa9f809c67b8d12ceab5221cebcef5acc792ba183050a2d50da459e2f as builder
 
 WORKDIR /app
 
@@ -40,10 +40,11 @@ COPY --from=builder /app .
 
 # Download New Relic Java agent
 ARG NEWRELIC_AGENT_DOWNLOAD
-ENV NEWRELIC_AGENT_DOWNLOAD=${NEWRELIC_AGENT_DOWNLOAD:-https://download.newrelic.com/newrelic/java-agent/newrelic-agent/8.0.0/newrelic-java.zip}
+ENV NEWRELIC_AGENT_DOWNLOAD=${NEWRELIC_AGENT_DOWNLOAD:-https://download.newrelic.com/newrelic/java-agent/newrelic-agent/8.9.1/newrelic-java.zip}
 RUN wget -q $NEWRELIC_AGENT_DOWNLOAD -O newrelic.zip
 RUN unzip -q newrelic.zip
 RUN rm -f newrelic.zip
+RUN ls /app/newrelic
     
 EXPOSE 9555
 ENTRYPOINT ["/app/build/install/hipstershop/bin/AdService"]

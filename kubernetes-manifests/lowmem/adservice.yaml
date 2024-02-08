@@ -53,8 +53,6 @@ spec:
               value: "false"
             - name: NEW_RELIC_APPLICATION_LOGGING_FORWARDING_ENABLED
               value: "false"
-            - name: JAVA_OPTS
-              value: "-javaagent:/app/newrelic/newrelic.jar"
           ports:
             - containerPort: 9555
           resources:
